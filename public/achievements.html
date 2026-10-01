@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Achievement</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-[#f0f3f8] flex h-screen overflow-hidden">
+  <aside class="w-60 bg-[#16203a] text-slate-300 flex flex-col justify-between py-6">
+    <div class="space-y-6">
+      <div class="px-6 text-xl font-bold text-white tracking-wide">🏫 School Admin</div>
+      <nav class="space-y-1 text-sm">
+        <a href="/dashboard.html" class="flex items-center gap-3 px-6 py-3 hover:bg-[#1e2a4a]">📊 Dashboard</a>
+        <a href="/students.html" class="flex items-center gap-3 px-6 py-3 hover:bg-[#1e2a4a]">👨‍🎓 Students</a>
+        <a href="/achievements.html" class="flex items-center gap-3 px-6 py-3 bg-[#243356] text-white border-l-4 border-blue-400">🏆 Achievements</a>
+      </nav>
+    </div>
+  </aside>
+
+  <main class="flex-1 overflow-y-auto p-8">
+    <div class="max-w-6xl mx-auto bg-white rounded-2xl p-6 shadow-sm border border-slate-100 space-y-6">
+      <div class="flex justify-between items-center border-b pb-4">
+        <div>
+          <h1 class="text-2xl font-bold text-slate-800">Student Achievement</h1>
+          <p class="text-xs text-slate-400 mt-1">Total Students: 1,250 | Avg. Attendance: 94%</p>
+        </div>
+        <select class="border rounded-md px-3 py-1.5 text-xs text-slate-600 bg-slate-50">
+          <option>Last 6 Months</option>
+        </select>
+      </div>
+
+      <!-- Top Row Charts -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="md:col-span-2">
+          <h2 class="text-sm font-bold text-slate-700 mb-3">Average Subject Scores</h2>
+          <canvas id="scoresBarChart" height="150"></canvas>
+        </div>
+        <div class="flex flex-col items-center justify-center p-4 bg-slate-50 rounded-xl">
+          <h2 class="text-sm font-bold text-slate-700 mb-2">Overall Pass Rate</h2>
+          <div class="relative flex items-center justify-center w-40 h-40">
+            <canvas id="passRateChart"></canvas>
+            <div class="absolute text-center">
+              <span class="text-3xl font-extrabold text-slate-800">87%</span>
+              <p class="text-[10px] text-slate-400">Pass Rate</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Line Chart -->
+      <div class="pt-4 border-t">
+        <h2 class="text-sm font-bold text-slate-700 mb-3">Performance Trends</h2>
+        <canvas id="trendsLineChart" height="90"></canvas>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Subject Scores Bar Chart
+    new Chart(document.getElementById('scoresBarChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Math', 'Science', 'English', 'History', 'Art'],
+        datasets: [{
+          data: [85, 78, 92, 88, 95],
+          backgroundColor: '#0d9488',
+          borderRadius: 4
+        }]
+      },
+      options: { plugins: { legend: { display: false } }, scales: { y: { max: 100 } } }
+    });
+
+    // Donut Pass Rate Chart
+    new Chart(document.getElementById('passRateChart'), {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [87, 13],
+          backgroundColor: ['#0d9488', '#1e293b'],
+          borderWidth: 0
+        }]
+      },
+      options: { cutout: '80%', plugins: { tooltip: { enabled: false } } }
+    });
+
+    // Performance Trends
+    new Chart(document.getElementById('trendsLineChart'), {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [
+          { label: 'Boys', data: [72, 85, 82, 90, 94, 96], borderColor: '#0d9488', tension: 0.3 },
+          { label: 'Girls', data: [80, 74, 85, 79, 87, 92], borderColor: '#1e293b', tension: 0.3 }
+        ]
+      },
+      options: { responsive: true, plugins: { legend: { display: false } } }
+    });
+  </script>
+</body>
+</html>

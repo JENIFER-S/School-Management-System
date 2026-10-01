@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>School Management Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-[#f0f3f8] flex h-screen overflow-hidden">
+  <!-- Sidebar Navigation -->
+  <aside class="w-60 bg-[#16203a] text-slate-300 flex flex-col justify-between py-6">
+    <div class="space-y-6">
+      <div class="px-6 text-xl font-bold text-white tracking-wide flex items-center gap-2">🏫 School Admin</div>
+      <nav class="space-y-1 text-sm">
+        <a href="/dashboard.html" class="flex items-center gap-3 px-6 py-3 bg-[#243356] text-white border-l-4 border-blue-400">📊 Dashboard</a>
+        <a href="/students.html" class="flex items-center gap-3 px-6 py-3 hover:bg-[#1e2a4a]">👨‍🎓 Students</a>
+        <a href="/achievements.html" class="flex items-center gap-3 px-6 py-3 hover:bg-[#1e2a4a]">🏆 Achievements</a>
+        <a href="#" class="flex items-center gap-3 px-6 py-3 hover:bg-[#1e2a4a]">👩‍🏫 Teachers</a>
+        <a href="#" class="flex items-center gap-3 px-6 py-3 hover:bg-[#1e2a4a]">📅 Attendance</a>
+      </nav>
+    </div>
+    <div class="px-6">
+      <a href="/index.html" class="text-sm text-red-400 hover:underline">Log Out</a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 overflow-y-auto p-6">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-bold text-slate-800">School Management Dashboard</h1>
+      <div class="flex items-center gap-2 text-sm text-slate-700 bg-white px-3 py-1.5 rounded-lg shadow-sm border">
+        <span>👤 Welcome, Admin</span>
+      </div>
+    </div>
+
+    <!-- 4 Statistic Banner Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+      <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl p-4 shadow">
+        <p class="text-xs uppercase font-medium">Total Students</p>
+        <h3 class="text-2xl font-extrabold mt-1">1,200</h3>
+        <p class="text-xs mt-2 text-blue-100">+ 15 This Week</p>
+      </div>
+      <div class="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl p-4 shadow">
+        <p class="text-xs uppercase font-medium">Total Teachers</p>
+        <h3 class="text-2xl font-extrabold mt-1">75</h3>
+        <p class="text-xs mt-2 text-emerald-100">+2 This Week</p>
+      </div>
+      <div class="bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl p-4 shadow">
+        <p class="text-xs uppercase font-medium">Classes</p>
+        <h3 class="text-2xl font-extrabold mt-1">30</h3>
+        <p class="text-xs mt-2 text-orange-100">-5 Active</p>
+      </div>
+      <div class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl p-4 shadow">
+        <p class="text-xs uppercase font-medium">Attendance</p>
+        <h3 class="text-2xl font-extrabold mt-1">94%</h3>
+        <p class="text-xs mt-2 text-purple-100">Weekly Average</p>
+      </div>
+    </div>
+
+    <!-- Chart Grid Row -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+      <!-- Line Chart -->
+      <div class="lg:col-span-2 bg-white rounded-xl p-5 shadow-sm border border-slate-100">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="font-bold text-slate-800">Students Overview</h2>
+          <span class="text-xs bg-slate-100 px-2.5 py-1 rounded text-slate-600">Grade 9 • This Year</span>
+        </div>
+        <canvas id="overviewChart" height="120"></canvas>
+      </div>
+
+      <!-- Upcoming Events Card -->
+      <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-100">
+        <h2 class="font-bold text-slate-800 mb-3">Upcoming Events</h2>
+        <div class="space-y-3">
+          <div class="p-3 bg-slate-50 border rounded-lg">
+            <h4 class="text-sm font-semibold text-slate-800">Science Fair</h4>
+            <p class="text-xs text-slate-500 mt-1">May 10, 2026</p>
+          </div>
+          <div class="p-3 bg-slate-50 border rounded-lg">
+            <h4 class="text-sm font-semibold text-slate-800">Parent-Teacher Meeting</h4>
+            <p class="text-xs text-slate-500 mt-1">May 15, 2026</p>
+          </div>
+          <button class="w-full mt-3 bg-blue-600 text-white text-xs py-2 rounded font-medium">View All</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Row (Notifications & Attendance Donut) -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-100">
+        <h3 class="font-bold text-slate-800 mb-3">Recent Notifications</h3>
+        <ul class="text-xs space-y-3 text-slate-600">
+          <li class="border-b pb-2">Fee payment pending for 3 students <span class="block text-slate-400">2 hrs ago</span></li>
+          <li class="border-b pb-2">New admission request received <span class="block text-slate-400">5 hrs ago</span></li>
+          <li>Exam schedule updated <span class="block text-slate-400">1 day ago</span></li>
+        </ul>
+      </div>
+
+      <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-100 text-center">
+        <h3 class="font-bold text-slate-800 mb-3">Teacher Stats</h3>
+        <div class="flex justify-around items-center h-28">
+          <div>
+            <p class="text-xs text-slate-400">Present Today</p>
+            <p class="text-2xl font-bold text-slate-800">72</p>
+          </div>
+          <div>
+            <p class="text-xs text-slate-400">On Leave</p>
+            <p class="text-2xl font-bold text-amber-500">3</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-100">
+        <h3 class="font-bold text-slate-800 mb-2">Monthly Attendance</h3>
+        <div class="w-40 mx-auto">
+          <canvas id="attendanceDoughnut"></canvas>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Overview Trend Chart
+    new Chart(document.getElementById('overviewChart'), {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+        datasets: [
+          { label: 'Boys', data: [110, 80, 120, 130, 170, 130, 160, 200, 160, 180], borderColor: '#0284c7', tension: 0.3 },
+          { label: 'Girls', data: [40, 60, 65, 80, 75, 95, 120, 130, 140, 140], borderColor: '#10b981', tension: 0.3 },
+          { label: 'Average', data: [20, 30, 35, 60, 60, 55, 75, 90, 110, 115], borderColor: '#f59e0b', tension: 0.3 }
+        ]
+      },
+      options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+    });
+
+    // Attendance Doughnut
+    new Chart(document.getElementById('attendanceDoughnut'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Present', 'Absent', 'Late'],
+        datasets: [{
+          data: [94, 4, 2],
+          backgroundColor: ['#22c55e', '#f97316', '#ef4444']
+        }]
+      },
+      options: { cutout: '65%', plugins: { legend: { display: false } } }
+    });
+  </script>
+</body>
+</html>

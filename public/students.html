@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Records Management</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f0f3f8] flex h-screen overflow-hidden">
+  <!-- Sidebar Navigation -->
+  <aside class="w-60 bg-[#16203a] text-slate-300 flex flex-col justify-between py-6">
+    <div class="space-y-6">
+      <div class="px-6 text-xl font-bold text-white tracking-wide">🏫 School Admin</div>
+      <nav class="space-y-1 text-sm">
+        <a href="/dashboard.html" class="flex items-center gap-3 px-6 py-3 hover:bg-[#1e2a4a]">📊 Dashboard</a>
+        <a href="/students.html" class="flex items-center gap-3 px-6 py-3 bg-[#243356] text-white border-l-4 border-blue-400">👨‍🎓 Students</a>
+        <a href="/achievements.html" class="flex items-center gap-3 px-6 py-3 hover:bg-[#1e2a4a]">🏆 Achievements</a>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- Main View -->
+  <main class="flex-1 overflow-y-auto p-8">
+    <div class="max-w-6xl mx-auto space-y-6">
+      <!-- Title & Action Buttons -->
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Student Management</span>
+          <h1 class="text-2xl font-bold text-slate-800">Manage student records and information</h1>
+          <p class="text-xs text-slate-500 mt-1">Keep enrollment, parent links, emergency details, and status tidy in one place.</p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button onclick="document.getElementById('studentModal').classList.remove('hidden')" class="bg-emerald-700 hover:bg-emerald-800 text-white text-xs px-4 py-2 rounded-lg font-medium shadow-sm transition">+ Add Student</button>
+        </div>
+      </div>
+
+      <!-- Quick Metrics -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+          <p class="text-xs text-slate-400">Total Students</p>
+          <p class="text-2xl font-bold text-slate-800" id="totalCount">30</p>
+        </div>
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+          <p class="text-xs text-slate-400">Active</p>
+          <p class="text-2xl font-bold text-slate-800">30 <span class="text-xs bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded font-normal">Active</span></p>
+        </div>
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+          <p class="text-xs text-slate-400">Male</p>
+          <p class="text-2xl font-bold text-slate-800">15</p>
+        </div>
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+          <p class="text-xs text-slate-400">Female</p>
+          <p class="text-2xl font-bold text-slate-800">15</p>
+        </div>
+      </div>
+
+      <!-- Student Records Data Table -->
+      <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+        <div class="p-4 border-b border-slate-100 flex justify-between items-center">
+          <h2 class="font-bold text-slate-700">All Students</h2>
+          <input type="text" id="searchInput" placeholder="Search by name..." class="border rounded-md px-3 py-1.5 text-xs w-60">
+        </div>
+        <table class="w-full text-left text-sm">
+          <thead class="bg-slate-50 text-slate-500 uppercase text-[11px] tracking-wider">
+            <tr>
+              <th class="p-3">Student</th>
+              <th class="p-3">Status</th>
+              <th class="p-3">Gender</th>
+              <th class="p-3">Class</th>
+              <th class="p-3">Parent</th>
+              <th class="p-3">Date Created</th>
+              <th class="p-3 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="studentTableBody" class="divide-y divide-slate-100 text-slate-600 text-xs">
+            <!-- Dynamic rows will render here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Add Student Modal -->
+  <div id="studentModal" class="hidden fixed inset-0 bg-slate-900 bg-opacity-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-xl max-w-md w-full p-6 space-y-4 shadow-xl">
+      <h3 class="font-bold text-slate-800 text-base">Add New Student</h3>
+      <form id="addStudentForm" class="space-y-3">
+        <input type="text" id="stuName" required placeholder="Full Name" class="w-full border rounded p-2 text-xs">
+        <select id="stuGender" class="w-full border rounded p-2 text-xs">
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+        <input type="text" id="stuClass" required placeholder="Class (e.g., Grade 9)" class="w-full border rounded p-2 text-xs">
+        <input type="text" id="stuParent" required placeholder="Parent Name" class="w-full border rounded p-2 text-xs">
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="document.getElementById('studentModal').classList.add('hidden')" class="px-3 py-1.5 border rounded text-xs">Cancel</button>
+          <button type="submit" class="px-3 py-1.5 bg-emerald-600 text-white rounded text-xs">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    async function loadStudents() {
+      const res = await fetch('/api/students');
+      const data = await res.json();
+      const tbody = document.getElementById('studentTableBody');
+      tbody.innerHTML = '';
+      data.forEach(s => {
+        tbody.innerHTML += `
+          <tr class="hover:bg-slate-50">
+            <td class="p-3 font-semibold text-slate-800">${s.name}</td>
+            <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] ${s.status === 'Active' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}">${s.status}</span></td>
+            <td class="p-3">${s.gender}</td>
+            <td class="p-3">${s.class}</td>
+            <td class="p-3">${s.parent}</td>
+            <td class="p-3">${s.date_created}</td>
+            <td class="p-3 text-right">
+              <button onclick="deleteStudent(${s.id})" class="text-red-500 hover:underline">Delete</button>
+            </td>
+          </tr>
+        `;
+      });
+      document.getElementById('totalCount').innerText = data.length;
+    }
+
+    async function deleteStudent(id) {
+      if(confirm('Are you sure you want to remove this record?')) {
+        await fetch(`/api/students/${id}`, { method: 'DELETE' });
+        loadStudents();
+      }
+    }
+
+    document.getElementById('addStudentForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      await fetch('/api/students', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          name: document.getElementById('stuName').value,
+          gender: document.getElementById('stuGender').value,
+          className: document.getElementById('stuClass').value,
+          parent: document.getElementById('stuParent').value,
+          status: 'Active'
+        })
+      });
+      document.getElementById('studentModal').classList.add('hidden');
+      document.getElementById('addStudentForm').reset();
+      loadStudents();
+    });
+
+    loadStudents();
+  </script>
+</body>
+</html>
