@@ -6,43 +6,83 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-100 flex items-center justify-center min-h-screen p-4">
-  <div class="bg-white rounded-2xl shadow-xl flex flex-col md:flex-row max-w-4xl w-full overflow-hidden">
-    <!-- Left Hero Banner -->
-    <div class="md:w-1/2 bg-[#004e7c] p-8 text-white flex flex-col justify-center items-center text-center relative bg-cover bg-center" 
-         style="background-image: linear-gradient(rgba(0,50,85,0.75), rgba(0,50,85,0.85)), url('https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=600&q=80');">
-      <h2 class="text-3xl font-bold mb-2">Students Record Management System</h2>
-      <p class="text-sm italic opacity-90">It's never too late to study</p>
+  <div class="bg-white rounded-2xl shadow-xl flex flex-col md:flex-row max-w-4xl w-full overflow-hidden min-h-[520px]">
+    
+    <!-- Left Hero Banner with Exact Girl Student Image -->
+    <div class="md:w-1/2 relative flex flex-col justify-center items-center text-center p-8 bg-[#0b284a] overflow-hidden">
+      <!-- Background Image matching Slide 5 -->
+      <img 
+        src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=80" 
+        alt="Student" 
+        class="absolute inset-0 w-full h-full object-cover object-center opacity-85 brightness-90 mix-blend-normal"
+      />
+      <!-- Vignette Overlay for Crisp White Text -->
+      <div class="absolute inset-0 bg-gradient-to-t from-[#02182b]/90 via-[#02182b]/30 to-[#02182b]/60"></div>
+      
+      <!-- Overlay Text from Slide -->
+      <div class="relative z-10 text-white px-4">
+        <h2 class="text-3xl font-extrabold tracking-wide drop-shadow-md">Students Record Management System</h2>
+        <p class="text-base italic text-slate-200 mt-3 drop-shadow">It's never too late to study</p>
+      </div>
     </div>
 
     <!-- Right Login Form -->
-    <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+    <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center bg-[#f8fafc]">
       <div class="text-center mb-6">
-        <div class="w-12 h-12 bg-blue-900 mx-auto rounded-full flex items-center justify-center text-amber-400 font-bold text-2xl mb-2">🎓</div>
-        <h3 class="text-2xl font-bold text-slate-800">Welcome Back</h3>
-        <p class="text-sm text-slate-500">Login to continue</p>
+        <!-- Logo Icon matching Slide 5 -->
+        <div class="w-14 h-14 mx-auto mb-2 flex items-center justify-center">
+          <svg viewBox="0 0 100 100" class="w-12 h-12">
+            <!-- Graduation cap and dynamic figure -->
+            <path d="M50 15 L25 28 L50 41 L75 28 Z" fill="#1e3a8a"/>
+            <path d="M68 33 L68 50 C68 52 64 54 50 54 C36 54 32 52 32 50 L32 33" fill="none" stroke="#1e3a8a" stroke-width="3"/>
+            <path d="M45 45 C55 35 70 42 75 55 C65 65 55 58 45 45 Z" fill="#1e3a8a"/>
+            <path d="M45 55 C52 62 65 78 80 82 C72 70 60 62 45 55 Z" fill="#d97706"/>
+          </svg>
+        </div>
+        <h3 class="text-2xl font-bold text-[#1e293b]">Welcome Back</h3>
+        <p class="text-xs text-slate-500 mt-1">Login to continue</p>
       </div>
 
       <form id="loginForm" class="space-y-4">
         <div>
-          <select id="userRole" class="w-full border rounded-lg p-2.5 text-sm bg-slate-50 border-slate-300">
-            <option value="Admin">Admin</option>
+          <select id="userRole" class="w-full border border-slate-300 rounded-lg p-2.5 text-xs text-slate-600 bg-white focus:outline-none focus:ring-1 focus:ring-blue-600">
+            <option value="Admin">Select User (Admin)</option>
             <option value="Teacher">Teacher</option>
             <option value="Student">Student</option>
           </select>
         </div>
         <div>
-          <input type="email" id="email" value="admin@school.com" required placeholder="Email" class="w-full border rounded-lg p-2.5 text-sm border-slate-300">
+          <input 
+            type="email" 
+            id="email" 
+            value="admin@school.com" 
+            required 
+            placeholder="Email" 
+            class="w-full border border-slate-300 rounded-lg p-2.5 text-xs text-slate-700 bg-white focus:outline-none focus:ring-1 focus:ring-blue-600"
+          >
         </div>
-        <div>
-          <input type="password" id="password" value="admin123" required placeholder="Password" class="w-full border rounded-lg p-2.5 text-sm border-slate-300">
+        <div class="relative">
+          <input 
+            type="password" 
+            id="password" 
+            value="admin123" 
+            required 
+            placeholder="Password" 
+            class="w-full border border-slate-300 rounded-lg p-2.5 text-xs text-slate-700 bg-white focus:outline-none focus:ring-1 focus:ring-blue-600 pr-8"
+          >
+          <span class="absolute right-3 top-2.5 text-slate-400 text-xs">👁</span>
         </div>
-        <div class="flex items-center text-sm text-slate-600">
-          <input type="checkbox" id="togglePassword" class="mr-2 rounded">
-          <label for="togglePassword">Show password</label>
+        <div class="flex items-center text-xs text-slate-600">
+          <input type="checkbox" id="togglePassword" class="mr-2 rounded border-slate-300">
+          <label for="togglePassword" class="cursor-pointer">Show password</label>
         </div>
-        <button type="submit" class="w-full bg-[#1e2a5e] text-white py-2.5 rounded-lg hover:bg-opacity-95 font-medium transition">Login</button>
+        <button type="submit" class="w-full bg-[#1e2a5e] hover:bg-[#162046] text-white py-2.5 rounded-lg text-sm font-semibold transition shadow-md">
+          Login
+        </button>
       </form>
-      <p class="text-xs text-center text-slate-400 mt-6">By logging in, you agree to our <a href="#" class="text-blue-600 underline">privacy statement</a>.</p>
+      <p class="text-[11px] text-center text-slate-400 mt-6">
+        By logging in, you agree to our <a href="#" class="text-blue-600 underline">privacy statement</a>.
+      </p>
     </div>
   </div>
 
@@ -50,6 +90,7 @@
     document.getElementById('togglePassword').addEventListener('change', (e) => {
       document.getElementById('password').type = e.target.checked ? 'text' : 'password';
     });
+
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const res = await fetch('/api/login', {
@@ -62,7 +103,7 @@
         })
       });
       const data = await res.json();
-      if(data.success) {
+      if (data.success) {
         window.location.href = '/dashboard.html';
       } else {
         alert(data.message || 'Login failed');
