@@ -2,150 +2,222 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>School Management Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+  </style>
 </head>
-<body class="bg-[#f0f3f8] flex h-screen overflow-hidden">
-  <!-- Sidebar Navigation -->
-  <aside class="w-60 bg-[#16203a] text-slate-300 flex flex-col justify-between py-6">
+<body class="bg-[#edf2f9] flex h-screen overflow-hidden text-slate-800">
+
+  <!-- Left Sidebar matching Slide 6 -->
+  <aside class="w-64 bg-[#122247] text-slate-300 flex flex-col justify-between py-6 px-4 shrink-0 shadow-xl">
     <div class="space-y-6">
-      <div class="px-6 text-xl font-bold text-white tracking-wide flex items-center gap-2">🏫 School Admin</div>
-      <nav class="space-y-1 text-sm">
-        <a href="/dashboard.html" class="flex items-center gap-3 px-6 py-3 bg-[#243356] text-white border-l-4 border-blue-400">📊 Dashboard</a>
-        <a href="/students.html" class="flex items-center gap-3 px-6 py-3 hover:bg-[#1e2a4a]">👨‍🎓 Students</a>
-        <a href="/achievements.html" class="flex items-center gap-3 px-6 py-3 hover:bg-[#1e2a4a]">🏆 Achievements</a>
-        <a href="#" class="flex items-center gap-3 px-6 py-3 hover:bg-[#1e2a4a]">👩‍🏫 Teachers</a>
-        <a href="#" class="flex items-center gap-3 px-6 py-3 hover:bg-[#1e2a4a]">📅 Attendance</a>
+      <div class="flex items-center gap-3 px-3 py-2 text-white font-bold text-lg">
+        <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <span>School Admin</span>
+      </div>
+
+      <nav class="space-y-1 text-sm font-medium">
+        <a href="/dashboard.html" class="flex items-center gap-3 px-4 py-3 bg-[#20366b] text-white rounded-xl shadow-sm">
+          <i class="fa-solid fa-chart-pie w-5"></i> Dashboard
+        </a>
+        <a href="/students.html" class="flex items-center gap-3 px-4 py-3 hover:bg-[#1a2d59] rounded-xl transition">
+          <i class="fa-solid fa-user-graduate w-5"></i> Students
+        </a>
+        <a href="/achievements.html" class="flex items-center gap-3 px-4 py-3 hover:bg-[#1a2d59] rounded-xl transition">
+          <i class="fa-solid fa-award w-5"></i> Achievements
+        </a>
+        <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-[#1a2d59] rounded-xl transition opacity-80">
+          <i class="fa-solid fa-chalkboard-user w-5"></i> Teachers
+        </a>
+        <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-[#1a2d59] rounded-xl transition opacity-80">
+          <i class="fa-solid fa-calendar-check w-5"></i> Attendance
+        </a>
+        <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-[#1a2d59] rounded-xl transition opacity-80">
+          <i class="fa-solid fa-book-open w-5"></i> Exams
+        </a>
+        <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-[#1a2d59] rounded-xl transition opacity-80">
+          <i class="fa-solid fa-bullhorn w-5"></i> Events
+        </a>
       </nav>
     </div>
-    <div class="px-6">
-      <a href="/index.html" class="text-sm text-red-400 hover:underline">Log Out</a>
+
+    <div class="px-3 border-t border-slate-700/60 pt-4">
+      <a href="/index.html" class="flex items-center gap-2 text-sm text-red-400 hover:text-red-300 font-medium">
+        <i class="fa-solid fa-right-from-bracket"></i> Log Out
+      </a>
     </div>
   </aside>
 
-  <!-- Main Content -->
-  <main class="flex-1 overflow-y-auto p-6">
-    <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
-      <h1 class="text-2xl font-bold text-slate-800">School Management Dashboard</h1>
-      <div class="flex items-center gap-2 text-sm text-slate-700 bg-white px-3 py-1.5 rounded-lg shadow-sm border">
-        <span>👤 Welcome, Admin</span>
+  <!-- Main View Area -->
+  <main class="flex-1 overflow-y-auto p-6 md:p-8 space-y-6">
+    <!-- Top Bar -->
+    <div class="flex justify-between items-center">
+      <h1 class="text-2xl font-extrabold text-[#111c38]">School Management Dashboard</h1>
+      <div class="flex items-center gap-3 bg-white px-4 py-2 rounded-xl shadow-sm border border-slate-100">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Admin" class="w-8 h-8 rounded-full object-cover">
+        <span class="text-xs font-semibold text-slate-700">Welcome, Admin</span>
       </div>
     </div>
 
-    <!-- 4 Statistic Banner Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-      <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl p-4 shadow">
-        <p class="text-xs uppercase font-medium">Total Students</p>
-        <h3 class="text-2xl font-extrabold mt-1">1,200</h3>
-        <p class="text-xs mt-2 text-blue-100">+ 15 This Week</p>
+    <!-- 4 Colored KPI Cards matching Slide 6 -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-gradient-to-r from-[#2563eb] to-[#3b82f6] text-white p-5 rounded-2xl shadow-sm flex items-center justify-between">
+        <div>
+          <p class="text-xs font-medium text-blue-100">Total Students</p>
+          <h2 class="text-3xl font-extrabold mt-1">1,200</h2>
+          <p class="text-[11px] text-blue-200 mt-2 font-medium">+ 15 This Week</p>
+        </div>
+        <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-xl">
+          <i class="fa-solid fa-users"></i>
+        </div>
       </div>
-      <div class="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl p-4 shadow">
-        <p class="text-xs uppercase font-medium">Total Teachers</p>
-        <h3 class="text-2xl font-extrabold mt-1">75</h3>
-        <p class="text-xs mt-2 text-emerald-100">+2 This Week</p>
+
+      <div class="bg-gradient-to-r from-[#059669] to-[#10b981] text-white p-5 rounded-2xl shadow-sm flex items-center justify-between">
+        <div>
+          <p class="text-xs font-medium text-emerald-100">Total Teachers</p>
+          <h2 class="text-3xl font-extrabold mt-1">75</h2>
+          <p class="text-[11px] text-emerald-200 mt-2 font-medium">+ 2 This Week</p>
+        </div>
+        <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-xl">
+          <i class="fa-solid fa-chalkboard-user"></i>
+        </div>
       </div>
-      <div class="bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl p-4 shadow">
-        <p class="text-xs uppercase font-medium">Classes</p>
-        <h3 class="text-2xl font-extrabold mt-1">30</h3>
-        <p class="text-xs mt-2 text-orange-100">-5 Active</p>
+
+      <div class="bg-gradient-to-r from-[#ea580c] to-[#f97316] text-white p-5 rounded-2xl shadow-sm flex items-center justify-between">
+        <div>
+          <p class="text-xs font-medium text-orange-100">Classes</p>
+          <h2 class="text-3xl font-extrabold mt-1">30</h2>
+          <p class="text-[11px] text-orange-200 mt-2 font-medium">- 5 Active</p>
+        </div>
+        <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-xl">
+          <i class="fa-solid fa-school"></i>
+        </div>
       </div>
-      <div class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl p-4 shadow">
-        <p class="text-xs uppercase font-medium">Attendance</p>
-        <h3 class="text-2xl font-extrabold mt-1">94%</h3>
-        <p class="text-xs mt-2 text-purple-100">Weekly Average</p>
+
+      <div class="bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] text-white p-5 rounded-2xl shadow-sm flex items-center justify-between">
+        <div>
+          <p class="text-xs font-medium text-purple-100">Attendance</p>
+          <h2 class="text-3xl font-extrabold mt-1">94%</h2>
+          <p class="text-[11px] text-purple-200 mt-2 font-medium">Weekly Average</p>
+        </div>
+        <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-xl">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
       </div>
     </div>
 
-    <!-- Chart Grid Row -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-      <!-- Line Chart -->
-      <div class="lg:col-span-2 bg-white rounded-xl p-5 shadow-sm border border-slate-100">
+    <!-- Line Chart & Events -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
         <div class="flex justify-between items-center mb-4">
-          <h2 class="font-bold text-slate-800">Students Overview</h2>
-          <span class="text-xs bg-slate-100 px-2.5 py-1 rounded text-slate-600">Grade 9 • This Year</span>
+          <h3 class="font-bold text-slate-800 text-sm">Students Overview</h3>
+          <span class="text-xs bg-slate-100 px-3 py-1 rounded-full text-slate-600 font-medium">This Year • Grade 9</span>
         </div>
-        <canvas id="overviewChart" height="120"></canvas>
+        <div class="h-64">
+          <canvas id="overviewChart"></canvas>
+        </div>
       </div>
 
-      <!-- Upcoming Events Card -->
-      <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-100">
-        <h2 class="font-bold text-slate-800 mb-3">Upcoming Events</h2>
-        <div class="space-y-3">
-          <div class="p-3 bg-slate-50 border rounded-lg">
-            <h4 class="text-sm font-semibold text-slate-800">Science Fair</h4>
-            <p class="text-xs text-slate-500 mt-1">May 10, 2026</p>
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="font-bold text-slate-800 text-sm">Upcoming Events</h3>
+            <a href="#" class="text-xs text-blue-600 font-semibold hover:underline">View All &gt;</a>
           </div>
-          <div class="p-3 bg-slate-50 border rounded-lg">
-            <h4 class="text-sm font-semibold text-slate-800">Parent-Teacher Meeting</h4>
-            <p class="text-xs text-slate-500 mt-1">May 15, 2026</p>
+          <div class="space-y-3">
+            <div class="p-3.5 bg-slate-50 border border-slate-100 rounded-xl">
+              <h4 class="text-xs font-bold text-slate-800">Science Fair</h4>
+              <p class="text-[11px] text-slate-500 mt-1">May 10, 2026</p>
+            </div>
+            <div class="p-3.5 bg-slate-50 border border-slate-100 rounded-xl">
+              <h4 class="text-xs font-bold text-slate-800">Parent-Teacher Meeting</h4>
+              <p class="text-[11px] text-slate-500 mt-1">May 15, 2026</p>
+            </div>
           </div>
-          <button class="w-full mt-3 bg-blue-600 text-white text-xs py-2 rounded font-medium">View All</button>
         </div>
+        <button class="w-full bg-[#1b2a59] text-white py-2 rounded-xl text-xs font-semibold mt-4 shadow-sm hover:bg-[#121e42] transition">
+          View All Events
+        </button>
       </div>
     </div>
 
-    <!-- Bottom Row (Notifications & Attendance Donut) -->
+    <!-- Bottom Row (Notifications, Teacher Stats, Monthly Attendance) -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-100">
-        <h3 class="font-bold text-slate-800 mb-3">Recent Notifications</h3>
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+        <h3 class="font-bold text-slate-800 text-sm mb-3">Recent Notifications</h3>
         <ul class="text-xs space-y-3 text-slate-600">
-          <li class="border-b pb-2">Fee payment pending for 3 students <span class="block text-slate-400">2 hrs ago</span></li>
-          <li class="border-b pb-2">New admission request received <span class="block text-slate-400">5 hrs ago</span></li>
-          <li>Exam schedule updated <span class="block text-slate-400">1 day ago</span></li>
+          <li class="border-b border-slate-100 pb-2">Fee payment pending for 3 students <span class="block text-[10px] text-slate-400 mt-0.5">2 hrs ago</span></li>
+          <li class="border-b border-slate-100 pb-2">New admission request received <span class="block text-[10px] text-slate-400 mt-0.5">5 hrs ago</span></li>
+          <li>Exam schedule updated <span class="block text-[10px] text-slate-400 mt-0.5">1 day ago</span></li>
         </ul>
       </div>
 
-      <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-100 text-center">
-        <h3 class="font-bold text-slate-800 mb-3">Teacher Stats</h3>
-        <div class="flex justify-around items-center h-28">
-          <div>
-            <p class="text-xs text-slate-400">Present Today</p>
-            <p class="text-2xl font-bold text-slate-800">72</p>
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+        <h3 class="font-bold text-slate-800 text-sm mb-3">Teacher Stats</h3>
+        <div class="flex items-center justify-around py-4">
+          <div class="text-center">
+            <span class="text-xs text-slate-400">Present Today</span>
+            <p class="text-3xl font-extrabold text-[#111c38] mt-1">72</p>
+            <span class="text-[10px] text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded font-bold">96%</span>
           </div>
-          <div>
-            <p class="text-xs text-slate-400">On Leave</p>
-            <p class="text-2xl font-bold text-amber-500">3</p>
+          <div class="h-10 w-[1px] bg-slate-200"></div>
+          <div class="text-center">
+            <span class="text-xs text-slate-400">On Leave</span>
+            <p class="text-3xl font-extrabold text-amber-500 mt-1">3</p>
+            <span class="text-[10px] text-amber-600 bg-amber-50 px-2 py-0.5 rounded font-bold">4%</span>
           </div>
         </div>
       </div>
 
-      <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-100">
-        <h3 class="font-bold text-slate-800 mb-2">Monthly Attendance</h3>
-        <div class="w-40 mx-auto">
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col items-center">
+        <h3 class="font-bold text-slate-800 text-sm self-start mb-2">Monthly Attendance</h3>
+        <div class="w-36 h-36 relative">
           <canvas id="attendanceDoughnut"></canvas>
+        </div>
+        <div class="flex gap-4 text-[11px] mt-3">
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#10b981]"></span> Present 94%</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#f97316]"></span> Absent 4%</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#ef4444]"></span> Late 2%</span>
         </div>
       </div>
     </div>
   </main>
 
   <script>
-    // Overview Trend Chart
+    // Overview Line Chart matching Slide 6
     new Chart(document.getElementById('overviewChart'), {
       type: 'line',
       data: {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
         datasets: [
-          { label: 'Boys', data: [110, 80, 120, 130, 170, 130, 160, 200, 160, 180], borderColor: '#0284c7', tension: 0.3 },
-          { label: 'Girls', data: [40, 60, 65, 80, 75, 95, 120, 130, 140, 140], borderColor: '#10b981', tension: 0.3 },
-          { label: 'Average', data: [20, 30, 35, 60, 60, 55, 75, 90, 110, 115], borderColor: '#f59e0b', tension: 0.3 }
+          { label: 'Boys', data: [90, 110, 115, 140, 130, 160, 190, 160, 170, 180], borderColor: '#2563eb', backgroundColor: 'rgba(37, 99, 235, 0.05)', tension: 0.35, fill: true },
+          { label: 'Girls', data: [40, 65, 60, 75, 70, 95, 115, 125, 135, 140], borderColor: '#10b981', tension: 0.35 },
+          { label: 'Average', data: [20, 30, 40, 55, 55, 65, 80, 90, 100, 110], borderColor: '#f97316', tension: 0.35 }
         ]
       },
-      options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
     });
 
-    // Attendance Doughnut
+    // Attendance Doughnut Chart
     new Chart(document.getElementById('attendanceDoughnut'), {
       type: 'doughnut',
       data: {
         labels: ['Present', 'Absent', 'Late'],
         datasets: [{
           data: [94, 4, 2],
-          backgroundColor: ['#22c55e', '#f97316', '#ef4444']
+          backgroundColor: ['#10b981', '#f97316', '#ef4444'],
+          borderWidth: 0
         }]
       },
-      options: { cutout: '65%', plugins: { legend: { display: false } } }
+      options: { cutout: '70%', plugins: { legend: { display: false } } }
     });
   </script>
 </body>
